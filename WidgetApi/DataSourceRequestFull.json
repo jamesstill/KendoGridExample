@@ -1,0 +1,49 @@
+{
+  "filter": {
+    "filters": [
+      {
+        "filters": [
+          {
+            "field": "providerName",
+            "operator": "contains",
+            "value": "d08"
+          }
+        ],
+        "logic": "and"
+      },
+      {
+        "filters": [
+          {
+            "field": "isEngagementDisplay",
+            "operator": "contains",
+            "value": "N"
+          }
+        ],
+        "logic": "and"
+      }
+    ],
+    "logic": "and"
+  },
+  "group": [
+    {
+      "field": "providerName",
+      "aggregates": [
+        {
+          "field": "minutesClaimed",
+          "aggregate": "sum"
+        },
+        {
+          "field": "minutesClaimed",
+          "aggregate": "count"
+        }
+      ]
+    }
+  ],
+  "skip": 0,
+  "sort": [
+    {
+      "field": "isEngagementDisplay"
+    }
+  ],
+  "take": 18
+}
