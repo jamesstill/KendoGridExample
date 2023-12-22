@@ -16,13 +16,16 @@ namespace WidgetApi.Interceptors
         /// <param name="eventData"></param>
         /// <param name="result"></param>
         /// <returns></returns>
-        public override DbDataReader ReaderExecuted(
-            DbCommand command, 
-            CommandExecutedEventData eventData, 
-            DbDataReader result)
+        public override DbDataReader ReaderExecuted(DbCommand command, CommandExecutedEventData eventData, DbDataReader result)
         {
+            // ignore stored procedure calls
+            if (command.CommandType == CommandType.StoredProcedure)
+            {
+                return result;
+            }
+
             const string procedureName = "Logging.LogAudit";
-            if (command != null && command.Connection != null)
+            if (command.Connection != null)
             {
                 using var cn = new SqlConnection(command.Connection.ConnectionString);
                 var cm = new SqlCommand(procedureName, cn)
