@@ -32,14 +32,4 @@ namespace WidgetApi.Controllers
             return new JsonResult(result);
         }
     }
-
-
-
-
-
-
-
-
-    // Logging
-    // See: https://learn.microsoft.com/en-us/ef/ef6/fundamentals/logging-and-interception
 }
