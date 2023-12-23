@@ -38,9 +38,18 @@ namespace WidgetApi.Interceptors
                 cm.Parameters.Add("@UserId", SqlDbType.BigInt).Value = 999;
                 cm.Parameters.Add("SQLAuditLogID", SqlDbType.BigInt).Direction = ParameterDirection.Output;
 
-                cn.Open();
-                cm.ExecuteNonQuery();
-                cn.Close();
+                try
+                {
+                    cn.Open();
+                    cm.ExecuteNonQuery();
+                }
+                finally
+                {
+                    if (cn.State == ConnectionState.Open)
+                    {
+                        cn.Close();
+                    }
+                }
             }
 
             return result;
